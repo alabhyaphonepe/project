@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>Configuration file Search</title>
+</head>
+
+<body>
+    <br /> <br />
+    <div class="container">
+        <div style="background:transparent !important" class="jumbotron">
+            <div style="font-family:'Times New Roman'">
+                <p>
+                    <center>
+                        <font size="6" style="color:rgb(239,127,26);"> <br />Configuration File Search</font>
+                    </center>
+                </p>
+            </div>
+        </div>
+        <form action="/search/results" method="post">
+            <label>Choose a host:  </label>
+                <select name="hostname">
+                    {% for each in dirs %}
+                    <option value="{{each}}">{{each}}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label>enter regex</label>
+                <input type="text" name="regfilter" placeholder="enter regex to filter hosts" />
+            <div class="input-group">
+                <input type="text" class="form-control input-lg" name="input" placeholder="Search" autofocus>
+                <div class="input-group-btn">
+                    <button class="btn btn-primary btn-lg" type="submit">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+        <br><br>
+
+    </div>
+    </div>
+</body>
+
+</html>
