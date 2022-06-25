@@ -1,6 +1,7 @@
 import os
 import sys
 import time
+import socket
 from elasticsearch import Elasticsearch
 from pprint import pprint
 from datetime import datetime
@@ -60,6 +61,7 @@ def custom_action(file_name):
         doc = {
             'title': file_name,
             'data': data,
+            'hostname': socket.gethostname(),
             'timestamp': datetime.now(),
         }
 
