@@ -29,7 +29,7 @@
         </div>
     </div>
     <form action="/search/results" method="post">
-        <label>Choose a host:  </label>
+        <!-- <label>Choose a host:  </label>
             <select name="hostname">
                 {% for each in dirs %}
                 <option value="{{each}}">{{each}}</option>
@@ -37,7 +37,7 @@
             </select>
             <br>
             <label>enter regex</label>
-            <input type="text" name="regfilter" placeholder="enter regex to filter hosts" />
+            <input type="text" name="regfilter" placeholder="enter regex to filter hosts" /> -->
         <div class="input-group">
             <input type="text" class="form-control input-lg" name="input" placeholder="Search" autofocus>
             <div class="input-group-btn">
@@ -56,7 +56,6 @@
         <thead>
             <tr>
                 <th>File Name</th>
-                <th>Host</th>
                 <th>Summary</th>
                 <th>Score</th>
             </tr>
@@ -64,8 +63,8 @@
         {% for hit in res['hits']['hits'] %}
         <tbody>
             <tr>
-                <th scope="row">{{ hit['_source']['file']['filename'] }}</th>
-                <td><a href="{{ hit['_source']['file']['url'] }}">{{ hit['_source']['path']['virtual'] }}</a></td>
+                <th scope="row">{{ hit['_source']['title']}}</th>
+                <!-- <td><a href="">{{ hit['_source'] }}</a> -->
                 <td id="{{loop.index}}" name="goodSummary"> {{ hit['good_summary'] }} </td>
                 <td>{{ hit['_score'] }}</td>
             </tr>

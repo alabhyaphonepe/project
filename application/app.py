@@ -1,50 +1,43 @@
-# coding=<UTF-8>
-
 from flask import Flask, render_template, request, Markup
 from elasticsearch import Elasticsearch
 import os
 
 
 app = Flask(__name__)
-es = Elasticsearch('127.0.0.1', port=9200)
+es = Elasticsearch('10.57.57.106', port=9200)
 
 
 @app.route('/')
 def home():
-  mypath = "../listoffiles"
-  onlyfiles = [f for f in os.listdir(mypath)]
-  return render_template('search.html', dirs=onlyfiles)
+  # mypath = "../listoffiles"
+  # onlyfiles = [f for f in os.listdir(mypath)]
+  # return render_template('search.html', dirs=onlyfiles)
+  return render_template('search.html')
 
 
 @app.route('/search/results', methods=['GET','POST'])
 def request_search():
     mypath = "../listoffiles"
-    onlyfiles = [f for f in os.listdir(mypath)]
+    # onlyfiles = [f for f in os.listdir(mypath)]
     search_term = request.form["input"]
-    regfilter = request.form["regfilter"]
+    # regfilter = request.form["regfilter"]
     res = es.search(
-    index='sync_demo',
+    index='test-index',
     body = {
     "query": {
-      "bool": {
-        "must": [{
-          "simple_query_string": {
-            "fields": ["content"],
-            "query": search_term
-          }
-        }, {
-          "simple_query_string": {
-            "fields": ["path.virtual"],
-            "query": regfilter
-          }
-        }]
-      }
-    },
+        "bool": {
+            "must": {
+                "match": {
+                    "data": search_term
+                    }
+                }
+            }
+        },
     "highlight": {
       "pre_tags": ["<span style='background-color: yellow;'>"],
       "post_tags": ["</span>"],
       "fields": {
-        "content": {}
+        "data": {}
       }
     }
     })
@@ -52,13 +45,13 @@ def request_search():
     
     for hit in res['hits']['hits']:
         dd =""
-        for each in hit['highlight']['content']:
+        for each in hit['highlight']['data']:
             dd += each.replace("\n","<br>")
         htext = Markup(dd)
         hit['good_summary'] = htext
 
-    return render_template('results.html', res=res, dirs=onlyfiles)
-
+    # return render_template('results.html', res=res, dirs=onlyfiles)
+    return render_template('results.html', res=res)
 
 if __name__ == '__main__':
     app.run('0.0.0.0',port=5005, debug=True)

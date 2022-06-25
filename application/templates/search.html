@@ -11,7 +11,6 @@
 <body>
     <br /> <br />
     <div class="container">
-        <div style="background:transparent !important" class="jumbotron">
             <div style="font-family:'Times New Roman'">
                 <p>
                     <center>
@@ -21,15 +20,15 @@
             </div>
         </div>
         <form action="/search/results" method="post">
-            <label>Choose a host:  </label>
+            <!-- <label>Choose a host:  </label>
                 <select name="hostname">
                     {% for each in dirs %}
                     <option value="{{each}}">{{each}}</option>
                     {% endfor %}
-                </select>
-                <br>
-                <label>enter regex</label>
-                <input type="text" name="regfilter" placeholder="enter regex to filter hosts" />
+                </select> -->
+                <!-- <br> -->
+                <!-- <label>enter regex</label>
+                <input type="text" name="regfilter" placeholder="enter regex to filter hosts" /> -->
             <div class="input-group">
                 <input type="text" class="form-control input-lg" name="input" placeholder="Search" autofocus>
                 <div class="input-group-btn">
