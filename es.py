@@ -25,7 +25,7 @@ if val == 1:
 elif val == 2:
     search = str(input("Enter text to search \n"))
     res = es.search(index="test-index",query={"bool": {"must": {"match": {"data": search}}}})
-    #pprint(res)
+    pprint(res)
 
     print("\n\n\n\n\n\n ================================== \n\n\n\n\n\n")
     #pprint("Got %d Hits:" % res['hits']['total']['value'])
