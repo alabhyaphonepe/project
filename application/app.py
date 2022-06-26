@@ -1,10 +1,15 @@
 from flask import Flask, render_template, request, Markup
 from elasticsearch import Elasticsearch
 import os
+import socket
 
 
 app = Flask(__name__)
-es = Elasticsearch('10.57.57.106', port=9200)
+
+hostname=socket.gethostname()   
+ipaddr=socket.gethostbyname(hostname)  
+
+es = Elasticsearch(ipaddr, port=9200)
 
 
 @app.route('/')

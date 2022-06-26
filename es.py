@@ -1,20 +1,26 @@
+import imp
 from elasticsearch import Elasticsearch
 from datetime import datetime
 from pprint import pprint
+import socket
 
-es = Elasticsearch('10.57.57.106', port=9200)
+hostname=socket.gethostname()   
+ipaddr=socket.gethostbyname(hostname)   
+
+es = Elasticsearch(ipaddr, port=9200)
 
 val = int(input("Enter 1 to index data \nEnter 2 to search \n"))
 
 
 if val == 1:
-    name = input("Enter file name \n")
-    with open(name, 'r') as file:
+    file_name = input("Enter file name \n")
+    with open(file_name, 'r') as file:
         data = file.read()
 
     doc = {
-        'title': 'project',
+        'title': file_name,
         'data': data,
+        'hostname': hostname,
         'timestamp': datetime.now(),
     }
 

@@ -54,14 +54,16 @@ def custom_action(file_name):
     if first_run:
         first_run = False
     else:
-        es = Elasticsearch('10.57.57.106', port=9200)
+        hostname=socket.gethostname()   
+        ipaddr=socket.gethostbyname(hostname)   
+        es = Elasticsearch(ipaddr, port=9200)
         with open(file_name, 'r') as file:
             data = file.read()
 
         doc = {
             'title': file_name,
             'data': data,
-            'hostname': socket.gethostname(),
+            'hostname': hostname,
             'timestamp': datetime.now(),
         }
 
